@@ -107,14 +107,20 @@ export default function Portfolio() {
                </div>
             </div>
 
-            <a href="https://github.com/enriqgrs" target="_blank" rel="noreferrer" className="mt-8 flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all font-semibold text-sm group/btn shadow-lg">
-              <Github size={18} className="group-hover/btn:scale-110 transition-transform" /> Ver GitHub
-            </a>
+            <a 
+  href="https://github.com/enriqgrs/Portfolio" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="relative z-20 mt-8 flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] rounded-xl transition-all font-semibold text-sm group/btn cursor-pointer"
+>
+  <Github size={18} className="group-hover/btn:scale-110 transition-transform" /> 
+  Ver Repositorio
+</a>
           </div>
         </aside>
 
         {/* COLUMNA DERECHA: IA CHAT PORTFOLIO */}
-        <main className="lg:col-span-8 flex flex-col h-[600px] bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        <main className="lg:col-span-8 flex flex-col h-[500px] bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
           <div className="p-5 border-b border-white/10 bg-black/20 flex items-center justify-between backdrop-blur-md">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center w-4 h-4">
