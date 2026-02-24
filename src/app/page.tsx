@@ -114,7 +114,7 @@ export default function Portfolio() {
         </aside>
 
         {/* COLUMNA DERECHA: IA CHAT PORTFOLIO */}
-        <main className="lg:col-span-8 flex flex-col h-[750px] bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        <main className="lg:col-span-8 flex flex-col h-[600px] bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
           <div className="p-5 border-b border-white/10 bg-black/20 flex items-center justify-between backdrop-blur-md">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center w-4 h-4">
