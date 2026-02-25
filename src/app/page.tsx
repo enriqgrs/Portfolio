@@ -1,201 +1,248 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
-import { Send, User, Bot, Loader2, Github, Sparkles, Terminal } from 'lucide-react';
 
-// --- COMPONENTE MÁGICO: EFECTO MÁQUINA DE ESCRIBIR ---
-const Typewriter = ({ text, delay = 15 }: { text: string, delay?: number }) => {
-  const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+import Image from "next/image";
+import {
+  GraduationCap, Code2, Brain, Languages, Briefcase,
+  Cpu, Database, Terminal, Users, MessageCircle,
+  Lightbulb, Shield, Rocket, HeartHandshake, MapPin,
+  Github, Linkedin, ExternalLink,
+} from "lucide-react";
 
-  useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText(prevText => prevText + text[currentIndex]);
-        setCurrentIndex(prevIndex => prevIndex + 1);
-      }, delay);
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, delay, text]);
-
+export default function SobreMi() {
   return (
-    <span>
-      {currentText}
-      {currentIndex < text.length && <span className="animate-pulse text-blue-400">█</span>}
-    </span>
-  );
-};
-// ----------------------------------------------------
+    <div className="max-w-5xl mx-auto px-6" style={{ display: "flex", flexDirection: "column", gap: 64 }}>
 
-export default function Portfolio() {
-  const [messages, setMessages] = useState([
-    { role: 'ai', content: '¡Hola! Soy el asistente inteligente de Enrique. ¿Quieres saber sobre sus proyectos de ML, su formación en la Unizar o sus habilidades técnicas?' }
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+      {/* ===== HERO ===== */}
+      <section className="animate-fade-in" style={{ paddingTop: 24 }}>
+        <style>{`@media(min-width:768px){#hero-grid{grid-template-columns:1fr auto !important;}}`}</style>
+        <div id="hero-grid" style={{ display: "grid", gap: 40, alignItems: "center" }}>
 
-  useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [messages, isLoading]); // Añadido isLoading para que baje al salir "Pensando..."
-
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
-
-    const userMessage = input;
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setIsLoading(true);
-
-    try {
-      const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL?.replace(/\/$/, '');
-      const response = await fetch(`${baseUrl}/ask`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage }),
-      });
-
-      if (!response.ok) throw new Error('Error en el servidor');
-      const data = await response.json();
-      setMessages(prev => [...prev, { role: 'ai', content: data.answer }]);
-    } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', content: '⚠️ Mi conexión con el servidor ha fallado. Enrique está migrando el backend a la nube. ¡Vuelve pronto!' }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-[#050B14] text-slate-200 font-sans selection:bg-blue-500/30 relative">
-      
-      {/* BACKGROUND MÁGICO (Orbes de luz flotantes) */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/20 blur-[150px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/20 blur-[150px] rounded-full mix-blend-screen" />
-      </div>
-
-      <div className="relative max-w-6xl mx-auto px-4 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 z-10">
-        
-        {/* COLUMNA IZQUIERDA: PERFIL CON EFECTO CRISTAL */}
-        <aside className="lg:col-span-4 space-y-6">
-          <div className="bg-white/5 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.3)] relative overflow-hidden group">
-            {/* Brillo sutil al pasar el ratón (Hover effect) */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="w-20 h-20 bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-500 rounded-2xl mb-6 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.4)] relative">
-              <div className="absolute inset-0 bg-white/20 rounded-2xl blur-sm" />
-              <Terminal size={40} className="text-white relative z-10" />
+          {/* Text column */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div className="badge animate-fade-in-up stagger-1">
+              <MapPin size={11} /> Zaragoza, España
             </div>
-            
-            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-white via-blue-100 to-slate-400 bg-clip-text text-transparent tracking-tight">
-              Enrique
+
+            <h1 className="animate-fade-in-up stagger-2" style={{ fontSize: "clamp(2.2rem,4.5vw,3.2rem)", fontWeight: 800, lineHeight: 1.1, margin: 0, letterSpacing: "-0.025em", color: "var(--text-primary)" }}>
+              Enrique{" "}
+              <span className="gradient-text">Guarás Lacasta</span>
             </h1>
-            <p className="text-blue-400 font-semibold mb-4 text-sm uppercase tracking-widest mt-2">Ingeniero de IA</p>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
-              Estudiante de la Universidad de Zaragoza. Especializado en arquitecturas RAG, 
-              sistemas inteligentes y optimización algorítmica.
+
+            <div className="accent-line animate-fade-in-up stagger-3" />
+
+            <p className="animate-fade-in-up stagger-3" style={{ fontSize: 16, fontWeight: 600, color: "#4F46E5", margin: 0 }}>
+              Ingeniero de IA &amp; Machine Learning
             </p>
-            
-            <div className="space-y-3">
-               <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Stack Principal</h3>
-               <div className="flex flex-wrap gap-2">
-                  {['Python', 'FastAPI', 'Next.js', 'Supabase', 'Gemini AI'].map(tech => (
-                    <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all rounded-lg text-xs font-medium backdrop-blur-md cursor-default">
-                      {tech}
-                    </span>
-                  ))}
-               </div>
-            </div>
 
-            <a 
-  href="https://github.com/enriqgrs/Portfolio" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="relative z-20 mt-8 flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] rounded-xl transition-all font-semibold text-sm group/btn cursor-pointer"
->
-  <Github size={18} className="group-hover/btn:scale-110 transition-transform" /> 
-  Ver Repositorio
-</a>
-          </div>
-        </aside>
+            <p className="animate-fade-in-up stagger-4" style={{ color: "var(--text-tertiary)", lineHeight: 1.75, maxWidth: 520, margin: 0, fontSize: 15 }}>
+              Estudiante de 3º de Ingeniería Informática (Computación) en la{" "}
+              <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>Universidad de Zaragoza</span>.
+              Especializado en el diseño de algoritmos eficientes y sistemas inteligentes con
+              Deep Learning, modelos probabilísticos y programación concurrente.
+            </p>
 
-        {/* COLUMNA DERECHA: IA CHAT PORTFOLIO */}
-        <main className="lg:col-span-8 flex flex-col h-[500px] bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-          <div className="p-5 border-b border-white/10 bg-black/20 flex items-center justify-between backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-4 h-4">
-                <div className="absolute w-full h-full bg-emerald-500 rounded-full animate-ping opacity-75" />
-                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full z-10" />
-              </div>
-              <span className="font-bold text-xs uppercase tracking-widest text-slate-300">Conexión Segura • Gemini AI</span>
+            <div className="animate-fade-in-up stagger-5" style={{ display: "flex", gap: 10, flexWrap: "wrap", paddingTop: 4 }}>
+              <a href="https://github.com/enriqgrs" target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 7,
+                  padding: "9px 18px", borderRadius: 8,
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                  color: "var(--text-secondary)", fontSize: 13, fontWeight: 600,
+                  textDecoration: "none", boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  transition: "all 0.15s",
+                }}>
+                <Github size={15} /> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/enrique-guar%C3%A1s-lacasta-0abb63332/" target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 7,
+                  padding: "9px 18px", borderRadius: 8,
+                  background: "#4F46E5", border: "1px solid #4F46E5",
+                  color: "#FFFFFF", fontSize: 13, fontWeight: 600,
+                  textDecoration: "none", boxShadow: "0 1px 3px rgba(79,70,229,0.30)",
+                  transition: "all 0.15s",
+                }}>
+                <Linkedin size={15} /> LinkedIn
+              </a>
             </div>
-            <Sparkles size={18} className="text-blue-400 animate-pulse" />
           </div>
 
-          {/* CHAT MESSAGES */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}>
-                <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                  
-                  {/* AVATAR */}
-                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg border ${
-                    msg.role === 'user' 
-                      ? 'bg-gradient-to-br from-blue-500 to-indigo-600 border-blue-400/30 text-white' 
-                      : 'bg-gradient-to-br from-slate-800 to-slate-900 border-white/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
-                  }`}>
-                    {msg.role === 'user' ? <User size={18} /> : <Bot size={18} />}
-                  </div>
-
-                  {/* BURBUJA DE MENSAJE */}
-                  <div className={`p-5 rounded-3xl text-[15px] leading-relaxed shadow-xl ${
-                    msg.role === 'user' 
-                    ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-tr-sm border border-blue-500/30' 
-                    : 'bg-white/5 backdrop-blur-md border border-white/10 text-slate-200 rounded-tl-sm'
-                  }`}>
-                    {/* Si es IA y es el último mensaje (y no es el saludo inicial), aplica el efecto máquina de escribir */}
-                    {msg.role === 'ai' && i === messages.length - 1 && i !== 0 ? (
-                      <Typewriter text={msg.content} />
-                    ) : (
-                      msg.content
-                    )}
-                  </div>
+          {/* Photo */}
+          <div className="animate-fade-in-up stagger-4" style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ position: "relative" }}>
+              {/* Gradient ring frame */}
+              <div style={{
+                padding: 3, borderRadius: 22,
+                background: "linear-gradient(135deg, #6366F1, #8B5CF6, #06B6D4)",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)",
+              }}>
+                <div style={{
+                  width: 240, height: 240, borderRadius: 20, overflow: "hidden",
+                  border: "3px solid var(--surface)",
+                }}>
+                  <Image src="/foto.jpg" alt="Enrique Guarás Lacasta" fill className="object-cover object-center" priority />
                 </div>
               </div>
-            ))}
-            
-            {/* LOADING ANIMATION */}
-            {isLoading && (
-              <div className="flex justify-start items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                    <Bot size={18} className="text-blue-400 opacity-50" />
-                 </div>
-                 <div className="bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-3xl rounded-tl-sm flex gap-2 items-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                 </div>
+              <div style={{
+                position: "absolute", bottom: -10, right: -10,
+                background: "var(--surface)", borderRadius: 8, padding: "5px 12px",
+                border: "1px solid var(--border)", fontSize: 11, fontWeight: 700,
+                color: "#10B981", boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 5,
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981", flexShrink: 0 }} />
+                Disponible para prácticas
               </div>
-            )}
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* INPUT AREA (Glassmorphism effect) */}
-          <form onSubmit={handleSendMessage} className="p-4 bg-black/20 border-t border-white/10 flex gap-3 backdrop-blur-xl">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Hazme una pregunta sobre Enrique..."
-              className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-slate-500 text-white shadow-inner"
-            />
-            <button
-              disabled={isLoading || !input.trim()}
-              className="bg-blue-600 hover:bg-blue-500 text-white px-6 rounded-2xl transition-all disabled:opacity-30 disabled:hover:scale-100 hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center"
-            >
-              <Send size={20} className={isLoading ? 'animate-pulse' : ''} />
-            </button>
-          </form>
-        </main>
+      {/* ===== EDUCACIÓN ===== */}
+      <Section title="Educación" icon={<GraduationCap size={18} />}>
+        <Grid>
+          <TimelineCard
+            period="2022 – Actualidad"
+            title="Ingeniería Informática — Computación"
+            subtitle="Universidad de Zaragoza"
+            text="Diseño de algoritmos avanzados, inteligencia artificial, robótica, visión por computador y aprendizaje automático."
+            color="#4F46E5"
+          />
+          <TimelineCard
+            period="2020 – 2022"
+            title="Bachillerato Científico-Tecnológico"
+            subtitle="Colegio Sagrado Corazón La Mina"
+            text="Formación sólida en matemáticas, física y tecnología como base para la ingeniería."
+            color="#A3AEBF"
+          />
+        </Grid>
+      </Section>
+
+      {/* ===== EXPERIENCIA ===== */}
+      <Section title="Experiencia" icon={<Briefcase size={18} />}>
+        <div className="card" style={{ padding: 24, display: "flex", gap: 16, alignItems: "flex-start" }}>
+          <div className="icon-circle" style={{ width: 44, height: 44, background: "rgba(16,185,129,0.1)", color: "#10B981" }}>
+            <GraduationCap size={22} />
+          </div>
+          <div>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--indigo-500)" }}>2025</span>
+            <h3 style={{ fontSize: 16, fontWeight: 700, margin: "4px 0 6px", color: "var(--text-primary)" }}>Profesor Particular — EVAU</h3>
+            <p style={{ color: "var(--text-tertiary)", fontSize: 14, lineHeight: 1.7, margin: 0 }}>
+              Preparación de alumnos para las pruebas de acceso a la universidad.
+              Comunicación técnica adaptativa y mentoring personalizado.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* ===== HARD SKILLS ===== */}
+      <Section title="Hard Skills" icon={<Code2 size={18} />}>
+        <Grid>
+          <SkillCard icon={<Terminal size={18} />} title="Lenguajes" color="rgba(99,102,241,0.1)" iconColor="#6366F1"
+            skills={["C++ · Avanzado", "Python · Avanzado", "Java · Intermedio", "JavaScript · Intermedio", "C", "Haskell", "Ada", "Ensamblador"]} />
+          <SkillCard icon={<Brain size={18} />} title="IA & Data Science" color="rgba(139,92,246,0.1)" iconColor="#8B5CF6"
+            skills={["Deep Learning (CNN)", "Inferencia Probabilística", "Regresión Robusta", "Naive Bayes", "TensorFlow / Keras", "NumPy"]} />
+          <SkillCard icon={<Database size={18} />} title="Bases de Datos" color="rgba(16,185,129,0.1)" iconColor="#10B981"
+            skills={["SQL", "PostgreSQL", "Supabase (pgvector)"]} />
+          <SkillCard icon={<Cpu size={18} />} title="Herramientas" color="rgba(245,158,11,0.1)" iconColor="#F59E0B"
+            skills={["Docker", "Git / GitHub", "Linux", "Sistemas Empotrados", "HTML / CSS"]} />
+        </Grid>
+      </Section>
+
+      {/* ===== ALGORITMIA ===== */}
+      <Section title="Algoritmia" icon={<Cpu size={18} />}>
+        <div className="card" style={{ padding: 24 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {["Optimización de búsqueda", "Heurísticas", "Poda Alfa-Beta", "Estructuras eficientes",
+              "Complejidad asintótica", "Greedy Search", "A*", "BFS / DFS", "Min-Heaps", "Multithreading"].map(s => (
+                <span key={s} className="pill">{s}</span>
+              ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ===== SOFT SKILLS ===== */}
+      <Section title="Soft Skills" icon={<Users size={18} />}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(180px,1fr))", gap: 10 }}>
+          {[
+            { icon: <Users size={16} />, label: "Trabajo en equipo" },
+            { icon: <MessageCircle size={16} />, label: "Comunicación técnica" },
+            { icon: <Lightbulb size={16} />, label: "Pensamiento analítico" },
+            { icon: <Shield size={16} />, label: "Responsabilidad" },
+            { icon: <Rocket size={16} />, label: "Proactividad" },
+            { icon: <HeartHandshake size={16} />, label: "Resiliencia" },
+          ].map(item => (
+            <div key={item.label} className="card" style={{ padding: "14px 18px", display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ color: "var(--indigo-500)" }}>{item.icon}</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-secondary)" }}>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ===== IDIOMAS ===== */}
+      <Section title="Idiomas" icon={<Languages size={18} />}>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[
+            { flag: "🇪🇸", lang: "Español", level: "Nativo" },
+            { flag: "🇬🇧", lang: "Inglés", level: "B2" },
+          ].map(l => (
+            <div key={l.lang} className="card" style={{ padding: "16px 24px", display: "flex", alignItems: "center", gap: 14, minWidth: 180 }}>
+              <span style={{ fontSize: 28 }}>{l.flag}</span>
+              <div>
+                <p style={{ fontWeight: 700, color: "var(--text-primary)", margin: 0, fontSize: 14 }}>{l.lang}</p>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "2px 0 0" }}>{l.level}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+    </div>
+  );
+}
+
+/* ===== Sub-components ===== */
+function Section({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <section className="animate-fade-in-up" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div className="section-label">
+        <div className="icon-circle">{icon}</div>
+        <h2>{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function Grid({ children }: { children: React.ReactNode }) {
+  return <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: 12 }}>{children}</div>;
+}
+
+function TimelineCard({ period, title, subtitle, text, color }: {
+  period: string; title: string; subtitle: string; text: string; color: string;
+}) {
+  return (
+    <div className="card" style={{ padding: 24, borderLeft: `3px solid ${color}` }}>
+      <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--indigo-500)" }}>{period}</span>
+      <h3 style={{ fontSize: 15, fontWeight: 700, margin: "6px 0 3px", color: "var(--text-primary)" }}>{title}</h3>
+      <p style={{ fontSize: 13, fontWeight: 500, color: "var(--text-muted)", margin: "0 0 8px" }}>{subtitle}</p>
+      <p style={{ fontSize: 13, color: "var(--text-tertiary)", lineHeight: 1.7, margin: 0 }}>{text}</p>
+    </div>
+  );
+}
+
+function SkillCard({ icon, title, skills, color, iconColor }: {
+  icon: React.ReactNode; title: string; skills: string[]; color: string; iconColor: string;
+}) {
+  return (
+    <div className="card" style={{ padding: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div className="icon-circle" style={{ background: color, color: iconColor }}>{icon}</div>
+        <h3 style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", margin: 0 }}>{title}</h3>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {skills.map(s => <span key={s} className="pill">{s}</span>)}
       </div>
     </div>
   );
