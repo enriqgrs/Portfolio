@@ -91,7 +91,7 @@ export default function SobreMi() {
                 whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 5,
               }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981", flexShrink: 0 }} />
-                Disponible para prácticas
+                Activo
               </div>
             </div>
           </div>

@@ -53,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <span className="absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#10B981", animation: "ping-custom 1.2s cubic-bezier(0,0,0.2,1) infinite" }} />
                     <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#10B981" }} />
                   </span>
-                  La IA
+                  IA
                 </NavLink>
                 <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 4px" }} />
                 <ThemeToggle />
