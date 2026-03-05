@@ -70,7 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <div className="flex gap-5">
                 {[
                   { label: "GitHub", href: "https://github.com/enriqgrs" },
-                  { label: "LinkedIn", href: "https://www.linkedin.com/in/enrique-guar%C3%A1s-lacasta-0abb63332/" },
+                  { label: "LinkedIn", href: "https://www.linkedin.com/in/enrique-guaras/" },
                 ].map(l => (
                   <Link key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="footer-link">{l.label}</Link>
                 ))}
