@@ -53,7 +53,7 @@ export default function SobreMi() {
                 }}>
                 <Github size={15} /> GitHub
               </a>
-              <a href="https://www.linkedin.com/in/enrique-guar%C3%A1s-lacasta-0abb63332/" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/enrique-josé-guarás/" target="_blank" rel="noopener noreferrer"
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 7,
                   padding: "9px 18px", borderRadius: 8,
